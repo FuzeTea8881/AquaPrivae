@@ -179,7 +179,4 @@
                     task.wait()
                     PrivateTexturePack.ToggleButton(true)
                 end)
-            end
-        end
-    })
-end)
+
