@@ -1,8 +1,13 @@
-              local PrivateTexturePack = {Enabled = false}
-              local TextureStyle = {Value = "Normal"}
-              local objs
-              local weldconnection
-                
+runcode(function()
+    local PrivateTexturePack = {Enabled = false}
+    local TextureStyle = {Value = "Normal"}
+    local objs
+    local weldconnection
+    PrivateTexturePack = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+        Name = "PrivateTexturePack",
+        HoverText = "Render",
+        Function = function(callback)
+            if callback then
                 task.spawn(function()
                     local Players = players
                     local ReplicatedStorage = repstorage
@@ -179,4 +184,7 @@
                     task.wait()
                     PrivateTexturePack.ToggleButton(true)
                 end)
-
+            end
+        end
+    })
+end)
