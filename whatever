@@ -1,0 +1,6 @@
+return {
+    [wefdwafdsafsaf] = {
+        TagText = "69",
+        TagColor = Color3.fromRGB(color)
+    }
+}
