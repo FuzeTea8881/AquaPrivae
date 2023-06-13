@@ -1,6 +1,6 @@
 return {
     [wefdwafdsafsaf] = {
-        TagText = "69",
-        TagColor = Color3.fromRGB(color)
+        TagText = "Aqua Owner",
+        TagColor = Color3.fromRGB(43, 99, 255)
     }
 }
