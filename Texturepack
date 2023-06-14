@@ -3,7 +3,7 @@ runcode(function()
     local TextureStyle = {Value = "Normal"}
     local objs
     local weldconnection
-    PrivateTexturePack = GuiLibrary.ObjectsThatCanBeSaved.RenderWindow.Api.CreateOptionsButton({
+    PrivateTexturePack = GuiLibrary.ObjectsThatCanBeSaved.CombatWindow.Api.CreateOptionsButton({
         Name = "PrivateTexturePack",
         HoverText = "Render",
         Function = function(callback)
@@ -29,6 +29,7 @@ runcode(function()
                             end
                         end
                     end
+                    
                     local texturetype = (TextureStyle.Value == "Normal" and "" or TextureStyle.Value == "Intent" and "2" or TextureStyle.Value == "BrettHax" and "3" or TextureStyle.Value == "Rach" and "4" or TextureStyle.Value == "Wooms" and "5" or TextureStyle.Value == "32x" and "6" or "")
                     index = {
                         wood = {
