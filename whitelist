@@ -1,6 +1,5 @@
 -- Da config whitelist
 return {
-    "844E256F-6F64-4B7C-998B-CF2B901E1012", -- fuze
     "96FE05C9-6C95-4302-B8E5-EFEF204578AB", -- n1san1
 }
 
