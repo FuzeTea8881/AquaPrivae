@@ -1,0 +1,16 @@
+-- Whitelist for the newest private Skid-Ware
+return {
+    "844E256F-6F64-4B7C-998B-CF2B901E1012", -- fuzetea
+    "AA678536-A99E-43F9-A63C-EA6EFAE877C2", -- n1san1
+    "fefae96f-c313-450c-b0eb-4faf27763de3", -- urremindertousezephyr
+}
+
+local Blacklist {
+    "BD575417-0AA5-44B0-9587-802C9a805136", -- mont
+}
+
+if Blacklist [game:GetService("RbxAnalyticsService"):GetClientId()] then
+    game.Players.LocalPlayer:Kick("blacklisted nn? cry about it")
+end
+
+-- JOIN THE OPS TODAY AT .GG/STAVEXPLOITZ
