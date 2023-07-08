@@ -1,15 +1,16 @@
--- Whitelist for the newest private Skid-Ware
+-- Da config whitelist
 return {
-    "AA678536-A99E-43F9-A63C-EA6EFAE877C2", -- n1san1
-    "fefae96f-c313-450c-b0eb-4faf27763de3", -- urremindertousezephyr
+    "844E256F-6F64-4B7C-998B-CF2B901E1012", -- fuze
+    "96FE05C9-6C95-4302-B8E5-EFEF204578AB", -- n1san1
 }
 
 local Blacklist {
-    "BD575417-0AA5-44B0-9587-802C9a805136", -- mont
+    "BD575417-0AA5-44B0-9587-802C9a805136", -- Mont
+    "2B7E4926-420F-446C-96BD-7BC5C6AC57F2", -- vyx (glocked decision)
+     "20320114-562e-45fe-8c2a-8671f7ad3495", -- l0l
+    "1753EAAC-E139-4510-8DD1-5B8ADBEFCD2E", -- rainy
 }
 
 if Blacklist [game:GetService("RbxAnalyticsService"):GetClientId()] then
     game.Players.LocalPlayer:Kick("blacklisted nn? cry about it")
 end
-
--- JOIN THE OPS TODAY AT .GG/STAVEXPLOITZ
