@@ -47,7 +47,7 @@ TittleHolderLogo["BackgroundTransparency"] = 1;
 TittleHolderLogo["Position"] = UDim2.new(0, -5, 0, 8);
 
 -- StarterGui.AquaStats.Stats
-	local StatsHolder = Instance.new("Frame", AquaStatsHolder);
+local StatsHolder = Instance.new("Frame", AquaStatsHolder);
 StatsHolder["BorderSizePixel"] = 0;
 StatsHolder["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
 StatsHolder["BackgroundTransparency"] = 0.44999998807907104;
@@ -103,8 +103,8 @@ DeathCount.Name = "DeathCount"
 DeathCount.Text = tostring(deathamValue.Value)
 
 -- You can update DeathCount.Text whenever deathamValue.Value changes
-deathamValue.Changed:Connect(function(newValue)
-    DeathCount.Text = tostring(newValue)
+deathamValue.Changed:Connect(function()
+    DeathCount.Text = tostring(deathamValue.Value)
 end)
 
 -- StarterGui.AquaStats.Stats.DeathCount.DeathLogo
