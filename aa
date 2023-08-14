@@ -1,0 +1,210 @@
+local AquaStatsHolder = Instance.new("ScreenGui")
+AquaStatsHolder.Parent = game:WaitForChild("CoreGui")
+AquaStatsHolder.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+AquaStatsHolder.Name = "AquaStats"
+
+local TittleHolder = Instance.new("Frame", AquaStatsHolder);
+TittleHolder["BorderSizePixel"] = 0;
+TittleHolder["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+TittleHolder["BackgroundTransparency"] = 0.44999998807907104;
+TittleHolder["Size"] = UDim2.new(0, 185, 0, 40); 
+TittleHolder["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+TittleHolder["Position"] = UDim2.new(0, 15, 0, 5);
+TittleHolder["Name"] = [[TopBar]];
+
+-- StarterGui.AquaStats.TopBar.UICorner
+local TittleHolderCorner = Instance.new("UICorner", TittleHolder);
+TittleHolderCorner["CornerRadius"] = UDim.new(0, 5);
+
+-- StarterGui.AquaStats.TopBar.Tittle
+local TittleText = Instance.new("TextLabel", TittleHolder);
+TittleText["BorderSizePixel"] = 0;
+TittleText["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+TittleText["TextXAlignment"] = Enum.TextXAlignment.Left;
+TittleText["FontFace"] = Font.new([[rbxasset://fonts/families/Arial.json]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+TittleText["TextSize"] = 15;
+TittleText["TextColor3"] = Color3.fromRGB(255, 255, 255);
+TittleText["Size"] = UDim2.new(0, 140, 0, 25);
+TittleText["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+TittleText["Text"] = [[Aqua]];
+TittleText["Name"] = [[Tittle]];
+TittleText["BackgroundTransparency"] = 1;
+TittleText["Position"] = UDim2.new(0, 25, 0, 10);
+
+-- StarterGui.AquaStats.TopBar.UIPadding
+local TittleHolderPadding = Instance.new("UIPadding", TittleHolder);
+TittleHolderPadding["PaddingLeft"] = UDim.new(0, 15);
+
+-- StarterGui.AquaStats.TopBar.Logo
+local TittleHolderLogo = Instance.new("ImageLabel", TittleHolder);
+TittleHolderLogo["BorderSizePixel"] = 0;
+TittleHolderLogo["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+TittleHolderLogo["Image"] = [[http://www.roblox.com/asset/?id=8037079965]];
+TittleHolderLogo["Size"] = UDim2.new(0, 25, 0, 25);
+TittleHolderLogo["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+TittleHolderLogo["Name"] = [[Logo]];
+TittleHolderLogo["BackgroundTransparency"] = 1;
+TittleHolderLogo["Position"] = UDim2.new(0, -5, 0, 8);
+
+-- StarterGui.AquaStats.Stats
+local StatsHolder = Instance.new("Frame", AquaStatsHolder);
+StatsHolder["BorderSizePixel"] = 0;
+StatsHolder["BackgroundColor3"] = Color3.fromRGB(0, 0, 0);
+StatsHolder["BackgroundTransparency"] = 0.44999998807907104;
+StatsHolder["Size"] = UDim2.new(0, 185, 0, 133);
+StatsHolder["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+StatsHolder["Position"] = UDim2.new(0, 15, 0, 50);
+StatsHolder["Name"] = [[Stats]];
+
+-- StarterGui.AquaStats.Stats.UICorner
+local StatsHolderCorner = Instance.new("UICorner", StatsHolder);
+StatsHolderCorner["CornerRadius"] = UDim.new(0, 5);
+
+-- Find or create "deatham" in ReplicatedStorage
+local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
+if not deathamValue then
+    deathamValue = Instance.new("NumberValue", game:GetService("ReplicatedStorage"))
+    deathamValue.Value = 0
+    deathamValue.Name = "deatham"
+end
+
+spawn(function()
+    local canAdd = true
+
+    local function updateDeathCount()
+        deathamValue.Value = deathamValue.Value + 1
+        canAdd = false
+    end
+
+    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.Died:Connect(function()
+            if canAdd then
+                updateDeathCount()
+            end
+        end)
+    end)
+end)
+
+-- Assuming StatsHolder is already defined and available in the context
+local DeathCount = Instance.new("TextLabel", StatsHolder)
+DeathCount.BorderSizePixel = 0
+DeathCount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+DeathCount.Font = Enum.Font.SourceSansBold
+DeathCount.TextSize = 20
+DeathCount.TextColor3 = Color3.fromRGB(255, 255, 255)
+DeathCount.Size = UDim2.new(0, 45, 0, 30)
+DeathCount.BorderColor3 = Color3.fromRGB(0, 0, 0)
+DeathCount.BackgroundTransparency = 1
+DeathCount.Position = UDim2.new(0, -5, 0, 73)
+DeathCount.Name = "DeathCount"
+
+-- Set the initial text value
+DeathCount.Text = tostring(deathamValue.Value)
+
+-- You can update DeathCount.Text whenever deathamValue.Value changes
+deathamValue.Changed:Connect(function()
+    DeathCount.Text = tostring(deathamValue.Value)
+end)
+
+-- StarterGui.AquaStats.Stats.DeathCount.DeathLogo
+local DeathCountLogo = Instance.new("ImageLabel", DeathCount);
+DeathCountLogo["BorderSizePixel"] = 0;
+DeathCountLogo["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+DeathCountLogo["Image"] = [[rbxassetid://14420365332]];
+DeathCountLogo["Size"] = UDim2.new(0, 34, 0, 34);
+DeathCountLogo["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+DeathCountLogo["Name"] = [[DeathLogo]];
+DeathCountLogo["BackgroundTransparency"] = 1;
+DeathCountLogo["Position"] = UDim2.new(0, 6, 0, 20);
+
+-- StarterGui.AquaStats.Stats.DeathCount.DeathsText
+local DeathCountText = Instance.new("TextLabel", DeathCount);
+DeathCountText["BorderSizePixel"] = 0;
+DeathCountText["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+DeathCountText["TextXAlignment"] = Enum.TextXAlignment.Left;
+DeathCountText["FontFace"] = Font.new([[rbxassetid://11630347915]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+DeathCountText["TextSize"] = 15;
+DeathCountText["TextColor3"] = Color3.fromRGB(255, 255, 255);
+DeathCountText["Size"] = UDim2.new(0, 45, 0, 29);
+DeathCountText["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+DeathCountText["Text"] = [[Deaths]];
+DeathCountText["Name"] = [[DeathsText]];
+DeathCountText["BackgroundTransparency"] = 1;
+DeathCountText["Position"] = UDim2.new(0, 38, 0, 21);
+
+-- StarterGui.AquaStats.Stats.KillCount
+local function updateKillCount()
+    local topBarApp = game:GetService("Players").LocalPlayer.PlayerGui.TopBarAppGui.TopBarApp
+    local killCountValue = topBarApp["2"]["5"].ContentText
+    return tonumber(killCountValue) or 0
+end
+
+-- Assuming StatsHolder is already defined and available in the context
+local KillCount = Instance.new("TextLabel", StatsHolder)
+KillCount.BorderSizePixel = 0
+KillCount.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+KillCount.Font = Enum.Font.SourceSansBold
+KillCount.TextSize = 20
+KillCount.TextColor3 = Color3.fromRGB(255, 255, 255)
+KillCount.Size = UDim2.new(0, 45, 0, 30)
+KillCount.BorderColor3 = Color3.fromRGB(0, 0, 0)
+KillCount.BackgroundTransparency = 1
+KillCount.Position = UDim2.new(0, -5, 0, 30)
+KillCount.Name = "KillCount"
+
+-- Set the initial text value
+KillCount.Text = tostring(updateKillCount())
+
+-- Update KillCount.Text periodically
+local function updateLoop()
+    while true do
+        task.wait(1) -- Update every 1 second, adjust as needed
+        
+        local newKillCount = updateKillCount()
+        KillCount.Text = tostring(newKillCount)
+    end
+end
+
+spawn(updateLoop)
+
+-- StarterGui.AquaStats.Stats.KillCount.KillLogo
+local KillCountLogo = Instance.new("ImageLabel", KillCount);
+KillCountLogo["BorderSizePixel"] = 0;
+KillCountLogo["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+KillCountLogo["Image"] = [[rbxassetid://14420263323]];
+KillCountLogo["Size"] = UDim2.new(0, 34, 0, 34);
+KillCountLogo["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+KillCountLogo["Name"] = [[KillLogo]];
+KillCountLogo["BackgroundTransparency"] = 1;
+KillCountLogo["Position"] = UDim2.new(0, 6, 0, 20);
+
+-- StarterGui.AquaStats.Stats.KillCount.KillsText
+local KillCountText = Instance.new("TextLabel", KillCount);
+KillCountText["BorderSizePixel"] = 0;
+KillCountText["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+KillCountText["TextXAlignment"] = Enum.TextXAlignment.Left;
+KillCountText["FontFace"] = Font.new([[rbxassetid://11630347915]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+KillCountText["TextSize"] = 15;
+KillCountText["TextColor3"] = Color3.fromRGB(255, 255, 255);
+KillCountText["Size"] = UDim2.new(0, 45, 0, 29);
+KillCountText["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+KillCountText["Text"] = [[Kills]];
+KillCountText["Name"] = [[KillsText]];
+KillCountText["BackgroundTransparency"] = 1;
+KillCountText["Position"] = UDim2.new(0, 38, 0, 21);
+
+-- StarterGui.AquaStats.Stats.text
+local StastSessionInfo = Instance.new("TextLabel", StatsHolder);
+StastSessionInfo["BorderSizePixel"] = 0;
+StastSessionInfo["BackgroundColor3"] = Color3.fromRGB(255, 255, 255);
+StastSessionInfo["TextXAlignment"] = Enum.TextXAlignment.Left;
+StastSessionInfo["FontFace"] = Font.new([[rbxassetid://11630347915]], Enum.FontWeight.Bold, Enum.FontStyle.Normal);
+StastSessionInfo["TextSize"] = 18;
+StastSessionInfo["TextColor3"] = Color3.fromRGB(255, 255, 255);
+StastSessionInfo["Size"] = UDim2.new(0, 51, 0, 29);
+StastSessionInfo["BorderColor3"] = Color3.fromRGB(0, 0, 0);
+StastSessionInfo["Text"] = [[Session Info]];
+StastSessionInfo["Name"] = [[text]];
+StastSessionInfo["BackgroundTransparency"] = 1;
+StastSessionInfo["Position"] = UDim2.new(0, 11, 0, 5);
