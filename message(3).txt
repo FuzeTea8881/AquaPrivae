@@ -83,7 +83,7 @@ spawn(function()
                 end
             end
         end
-    until not callback
+    until not some_condition -- Update the condition properly
 end)
 
 -- Assuming StatsHolder is already defined and available in the context
