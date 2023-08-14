@@ -69,21 +69,21 @@ if not deathamValue then
 end
 
 spawn(function()
-    local canadd = true
-    repeat 
-        task.wait()
-        if game:GetService("Players").LocalPlayer.Character then
-            local healthAttribute = game:GetService("Players").LocalPlayer.Character:GetAttribute("Health")
-            if healthAttribute then
-                if healthAttribute == 0 and canadd then
-                    deathamValue.Value = deathamValue.Value + 1
-                    canadd = false
-                elseif healthAttribute ~= 0 then
-                    canadd = true
-                end
+    local canAdd = true
+
+    local function updateDeathCount()
+        deathamValue.Value = deathamValue.Value + 1
+        canAdd = false
+    end
+
+    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(character)
+        local humanoid = character:WaitForChild("Humanoid")
+        humanoid.Died:Connect(function()
+            if canAdd then
+                updateDeathCount()
             end
-        end
-    until not some_condition -- Update the condition properly
+        end)
+    end)
 end)
 
 -- Assuming StatsHolder is already defined and available in the context
