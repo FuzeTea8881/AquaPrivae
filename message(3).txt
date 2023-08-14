@@ -83,7 +83,6 @@ spawn(function()
                 end
             end
         end
-    until not callback
 end)
 
 -- Assuming StatsHolder is already defined and available in the context
