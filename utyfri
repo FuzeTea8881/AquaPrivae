@@ -67,22 +67,22 @@ applyBlur(StatsHolder)
 -- StarterGui.AquaStats.Stats.UICorner
 local StatsHolderCorner = Instance.new("UICorner", StatsHolder);
 StatsHolderCorner["CornerRadius"] = UDim.new(0, 5);
-
--- Find or create "deatham" in ReplicatedStorage
-local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
-if not deathamValue then
-    deathamValue = Instance.new("NumberValue", game:GetService("ReplicatedStorage"))
-    deathamValue.Value = 0
-    deathamValue.Name = "deatham"
+if not game:GetService("ReplicatedStorage"):FindFirstChild("deatham") then
+    local deaths = Instance.new("NumberValue", game:GetService("ReplicatedStorage"))
+    deaths.Value = 0
+    deaths.Name = "deatham"
 end
 
 spawn(function()
     local canadd = true
     repeat 
         task.wait()
-        if game:GetService("Players").LocalPlayer.Character then
-            local healthAttribute = game:GetService("Players").LocalPlayer.Character:GetAttribute("Health")
+        local localPlayer = game:GetService("Players").LocalPlayer
+        local character = localPlayer.Character
+        if character then
+            local healthAttribute = character:GetAttribute("Health")
             if healthAttribute then
+                local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
                 if healthAttribute == 0 and canadd then
                     deathamValue.Value = deathamValue.Value + 1
                     canadd = false
@@ -93,6 +93,7 @@ spawn(function()
         end
     until not callback
 end)
+
 
 -- Assuming StatsHolder is already defined and available in the context
 local DeathCount = Instance.new("TextLabel", StatsHolder)
