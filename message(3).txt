@@ -60,32 +60,6 @@ StatsHolder["Name"] = [[Stats]];
 local StatsHolderCorner = Instance.new("UICorner", StatsHolder);
 StatsHolderCorner["CornerRadius"] = UDim.new(0, 5);
 
--- Find or create "deatham" in ReplicatedStorage
-local deathamValue = game:GetService("ReplicatedStorage"):FindFirstChild("deatham")
-if not deathamValue then
-    deathamValue = Instance.new("NumberValue", game:GetService("ReplicatedStorage"))
-    deathamValue.Value = 0
-    deathamValue.Name = "deatham"
-end
-
-spawn(function()
-    local canAdd = true
-
-    local function updateDeathCount()
-        deathamValue.Value = deathamValue.Value + 1
-        canAdd = false
-    end
-
-    game:GetService("Players").LocalPlayer.CharacterAdded:Connect(function(character)
-        local humanoid = character:WaitForChild("Humanoid")
-        humanoid.Died:Connect(function()
-            if canAdd then
-                updateDeathCount()
-            end
-        end)
-    end)
-end)
-
 -- Assuming StatsHolder is already defined and available in the context
 local DeathCount = Instance.new("TextLabel", StatsHolder)
 DeathCount.BorderSizePixel = 0
@@ -101,11 +75,6 @@ DeathCount.Name = "DeathCount"
 
 -- Set the initial text value
 DeathCount.Text = tostring(deathamValue.Value)
-
--- You can update DeathCount.Text whenever deathamValue.Value changes
-deathamValue.Changed:Connect(function()
-    DeathCount.Text = tostring(deathamValue.Value)
-end)
 
 -- StarterGui.AquaStats.Stats.DeathCount.DeathLogo
 local DeathCountLogo = Instance.new("ImageLabel", DeathCount);
@@ -128,7 +97,7 @@ DeathCountText["TextSize"] = 15;
 DeathCountText["TextColor3"] = Color3.fromRGB(255, 255, 255);
 DeathCountText["Size"] = UDim2.new(0, 45, 0, 29);
 DeathCountText["BorderColor3"] = Color3.fromRGB(0, 0, 0);
-DeathCountText["Text"] = [[Deaths]];
+DeathCountText["Text"] = game:GetService("ReplicatedStorage"):FindFirstChild("deatham").Value
 DeathCountText["Name"] = [[DeathsText]];
 DeathCountText["BackgroundTransparency"] = 1;
 DeathCountText["Position"] = UDim2.new(0, 38, 0, 21);
